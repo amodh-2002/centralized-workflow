@@ -1,0 +1,35 @@
+name: Reusable CI workflow
+
+on:
+  workflow_call:
+    inputs:
+      node_version:
+        description: "Node.js version to use"
+        required: false
+        default: "18"
+        type: string
+    secrets:
+      CUSTOM_SECRET:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Set up the node.js
+        uses: actions/setup-node@v4
+        with:
+          node_version: ${{ inputs.node_version }}
+
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Runnin tests
+        run: npm test
+
+      - name: Print Secret (For Demo)
+        run: echo "Secret from caller- ${{ secrets.CUSTOM_SECRET }}"
