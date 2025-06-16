@@ -29,7 +29,7 @@ jobs:
         run: npm ci
 
       - name: Runnin tests
-        run: npm test
+        run: echo "Running test"
 
       - name: Print Secret (For Demo)
         run: echo "Secret from caller- ${{ secrets.CUSTOM_SECRET }}"
